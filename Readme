@@ -1,0 +1,145 @@
+# 🚀 Automated Machine Learning  
+**VU Machine Learning – WS 2024/25**  
+**Leon Christöfl | Iskren Ivanov | Dhanajay Sharma**
+
+---
+
+## 📊 Datasets
+
+### Auto MPG  
+- Samples: 398  
+- Features: 7:1  
+- Target: miles per gallon  
+
+### Communities & Crime  
+- Samples: 1,994  
+- Features: 101:0  
+- Target: crimes per 100K people  
+
+### Miami Housing  
+- Samples: 13,932  
+- Features: 13:3  
+- Target: sale price ($)  
+
+### Bike Sharing  
+- Samples: 17,389  
+- Features: 5:9  
+- Target: total bikes rented  
+
+---
+
+## 🧠 Approaches Compared
+
+- **Custom Implementation**: Simulated Annealing (SA)  
+- **Auto-Sklearn**: Meta-Learning  
+- **TPOT**: Genetic Algorithm  
+
+**Constraints for Fair Comparison:**  
+- Same preprocessing (one-hot, mean imputation, min-max scaling)  
+- Same algorithm search space (scikit-learn models)  
+- Same runtime (1 hour)
+
+---
+
+## ⚙️ Model Search Space
+
+- Epsilon-Support Vector Regressor (SVR)  
+- Stochastic Gradient Descent (SGD)  
+- K-Nearest Neighbors (KNN)  
+- Random Forest (RF)  
+- Multi-layer Perceptron (MLP)
+
+---
+
+## 📏 Evaluation Metric
+
+**Root Mean Squared Error (RMSE):**  
+\[
+RMSE = \sqrt{\frac{1}{n} \sum (y_{\text{true}} - y_{\text{pred}})^2}
+\]
+
+- Measures average error  
+- Lower is better; scale-dependent  
+
+---
+
+## 🔬 Simulated Annealing (SA)
+
+- Optimization algorithm to find global optima  
+- Accepts worse solutions probabilistically  
+- Temperature decreases gradually to reduce randomness  
+- Terminates when temperature < threshold or search space exhausted  
+
+---
+
+## 🛠 Implementation Overview
+
+- `SimulationAnnealingPoly`: Runs SA for all algorithms  
+- `SimulationAnnealingMono`: Core SA logic for one algorithm  
+- `ProcessLogger`: Logs changes and progress  
+- `DataModel`: Handles preprocessing and data splits  
+
+---
+
+## 🔧 Temperature & Cooling
+
+**Initial & Final Temperature:**  
+Based on expected difference in solution quality and acceptance probability.
+
+**Cooling Ratio:**  
+Depends on runtime budget and evaluation cost:  
+\[
+r = \left(\frac{T_{\text{final}}}{T_{\text{init}}}\right)^{1 / \text{updates}}
+\]
+
+---
+
+## ⛔ Termination Criteria
+
+- Final temperature threshold  
+- Excessive repetition of known solutions (>10% of space)  
+- Fully explored search space  
+
+---
+
+## 📌 Model Insights
+
+| Algorithm | Works Best When...          |
+|-----------|-----------------------------|
+| SVR       | Many features               |
+| SGD       | Rarely works well           |
+| KNN       | Few features                |
+| RF        | Most datasets               |
+| MLP       | Most datasets               |
+
+---
+
+## 📉 Search Behavior
+
+- RMSE reduces and stabilizes over iterations  
+- More randomness early, more precision later  
+
+---
+
+## ⏱️ Runtime Notes
+
+- Target runtime: 1 hour (12 min × 5 algorithms)  
+- Real runtime varies by feature count and hyperparams  
+
+**System:** Intel i7 (16 Cores), Windows 11, Python 3.10+
+
+---
+
+## 📊 Comparison Table
+
+| Feature               | Custom      | AutoSklearn | TPOT      |
+|-----------------------|-------------|-------------|-----------|
+| Data Preprocessing    | Fixed       | Fixed       | Fixed ✅   |
+| Feature Preprocessing | Fixed       | Fixed       | Fixed ✅   |
+| Search Algorithms     | Fully Custom| Equal       | Equal ✅   |
+| Search HParams        | Customizable| Predefined  | Customizable ❌ |
+| Runtime Deadline      | Estimated   | Strict      | Strict ❌  |
+
+---
+
+## 🙏 Thank You for Your Attention!
