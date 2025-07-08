@@ -1,0 +1,6 @@
+altair==5.5.0
+auto_sklearn==0.15.0
+numpy==1.24.4
+pandas==2.2.3
+scikit_learn==1.6.1 # scikit-learn==0.24.2
+TPOT==0.12.2
